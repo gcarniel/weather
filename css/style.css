@@ -1,5 +1,6 @@
 body {
-  background: #233047;
+  background: #1C1F23;
+  color: #1A91DA;
 }
 
 .container {
@@ -16,4 +17,8 @@ h1 {
   border-radius: 50%;
   width: 100px;
   margin-bottom: -50px;
+}
+
+label {
+  color: #FFC000;
 }
