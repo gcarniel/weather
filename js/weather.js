@@ -18,12 +18,12 @@ const fetchData = async url => {
     }
 }
 
-const getCityName = async cityName => {
+const getCityName = cityName => {
     const cityUrl = getCityURL(cityName)
     return fetchData(cityUrl)
 }
 
-const getCityWeather = async key => {
+const getCityWeather = key => {
     const weatherUrl = getWeatherUrl(key)
     return fetchData(weatherUrl)
 }
