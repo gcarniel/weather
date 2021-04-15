@@ -12,6 +12,22 @@ const addImage = (WeatherIcon, IsDayTime) => {
     imgTime.src = IsDayTime ? '/src/day.svg' : '/src/night.svg'
 }
 
+const showCityLocalStorage = () => {
+    const savedCity = localStorage.getItem('searchedCity')
+
+    if (savedCity) {
+        showCityWeather(savedCity)
+    }
+}
+
+const showCardInfo = () => {
+    const invisibleCard = cityCard.classList.contains('d-none')
+
+    if(invisibleCard) {
+        cityCard.classList.remove('d-none')
+    }
+}
+
 const showCityWeather = async inputValue => {
     const [{ Key, LocalizedName, AdministrativeArea }] = await getCityName(inputValue)
     const [{ IsDayTime, Temperature, WeatherIcon, WeatherText }] = await getCityWeather(Key)
@@ -21,15 +37,8 @@ const showCityWeather = async inputValue => {
     cityTemperature.textContent = Temperature.Metric.Value
     cityWeather.textContent = WeatherText
 
+    showCardInfo()
     addImage(WeatherIcon, IsDayTime)
-}
-
-const showCardInfo = () => {
-    const invisibleCard = cityCard.classList.contains('d-none')
-
-    if(invisibleCard) {
-        cityCard.classList.remove('d-none')
-    }
 }
 
 form.addEventListener('submit', event => {
@@ -41,7 +50,11 @@ form.addEventListener('submit', event => {
         return
     }
 
-    showCardInfo()
     showCityWeather(inputValue)
+
+    localStorage.setItem('searchedCity', inputValue)
+
     form.reset()
 })
+
+showCityLocalStorage()
